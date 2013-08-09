@@ -7,13 +7,17 @@ public class Then {
     private static Date date;
     
     private Then() {
-        super();
+        date = new Date();
     }
     
-    public static Date getThen() {
-        if(date == null){
-            date = new Date();
+    public static synchronized Date getThen() {
+        if(!exists()){
+            new Then();
         }
         return date;
+    }
+    
+    public static boolean exists() {
+        return date != null;
     }
 }
