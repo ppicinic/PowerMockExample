@@ -6,21 +6,30 @@ import static org.junit.Assert.fail;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.easymock.EasyMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.easymock.PowerMock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareOnlyThisForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.nature.pmock.Controller;
+import com.nature.pmock.Then;
+
 @RunWith(PowerMockRunner.class)
-@PrepareForTest( { Then.class })
+@PowerMockIgnore( { "org.apache.*" })
+@PrepareOnlyThisForTest( { Then.class })
+//@PrepareEverythingForTest 
 public class MockTest{
 
+    private Logger log = Logger.getLogger(MockTest.class);
     @Test
     public void ValidDate(){
         try {
-            System.out.println("------------------- ValidDate");
+//            System.out.println("------------------- ValidDate");
+            log.info("------------------- ValidDate");
             PowerMock.mockStatic(Then.class);
             EasyMock.expect(Then.getThen()).andReturn(new Date());
             Controller c = new Controller();
